@@ -32,15 +32,19 @@ defmodule Task04 do
     map |> elem(0) |> tuple_size()
   end
 
+  def height(map) do
+    tuple_size(map)
+  end
+
   def check_positions(filename) do
-    f = parse(filename)
-    height = f |> tuple_size()
-    width = width(f)
+    map = parse(filename)
+    height = height(map)
+    width = width(map)
 
     for y <- 0..(height - 1), x <- 0..(width - 1) do
-      at(f, x, y) == "@" and
+      at(map, x, y) == "@" and
         neighbours({x, y})
-        |> Enum.map(fn {x, y} -> at(f, x, y) end)
+        |> Enum.map(fn {x, y} -> at(map, x, y) end)
         |> Enum.filter(&(&1 == "@"))
         |> Enum.count() <
           4
